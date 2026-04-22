@@ -1,0 +1,7 @@
+{
+  "menu": [
+    { "name": "1 - qc_2sao", "mode": 1 },
+    { "name": "2 - qc_4sao", "mode": 2 },
+    { "name": "3 - Spam",    "mode": 3 }
+  ]
+}
