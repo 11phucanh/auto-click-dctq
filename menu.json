@@ -1,7 +1,8 @@
 {
   "menu": [
-    { "name": "1 - qc_2sao", "mode": 1 },
-    { "name": "2 - qc_4sao", "mode": 2 },
-    { "name": "3 - Spam",    "mode": 3 }
+    { "name": "[Quốc chiến] 2sao", "mode": "qc_2sao" },
+    { "name": "[Quốc chiến] 4sao", "mode": "qc_4sao" },
+    { "name": "[Giao Tranh] ",     "mode": "giao_tranh" },
+    { "name": "[Tranh Bá  ] ",     "mode": "tranh_ba" }
   ]
 }

@@ -1,7 +1,7 @@
 CreateMenu() {
     global currentSet
 
-    jsonText := FileRead("menu.json")
+    jsonText := FileRead("menu.json", "UTF-8")
     data := JSON.Parse(jsonText)
 
     myMenu := Menu()
