@@ -23,11 +23,8 @@ myMenu := CreateMenu()
 ^`::
 ^0:: Stop()
 
-^1:: SaveMouseToSlot("1")
-^2:: SaveMouseToSlot("2")
-^3:: SaveMouseToSlot("3")
-^4:: SaveMouseToSlot("4")
-^5:: SaveMouseToSlot("5")
+^1:: SaveMouse()
+^2:: ResetPositions()
 
 ^Q:: ExitAutoDCTQ()
 

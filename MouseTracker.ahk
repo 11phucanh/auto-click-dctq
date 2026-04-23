@@ -1,8 +1,9 @@
 global posFile := A_ScriptDir "\positions\temp.json"
-global positions := Map()
+global positions := []
 global drawList := []
 
-SavePositions() {
+SavePositions()
+{
     global posFile, positions
 
     File := FileOpen(posFile, "w")
@@ -10,26 +11,42 @@ SavePositions() {
     File.Close()
 }
 
-SaveMouseToSlot(slot) {
+SaveMouse()
+{
     global positions
 
     MouseGetPos(&x, &y)
 
-    positions[slot] := { x: x, y: y }
+    positions.Push({ x: x, y: y })
+
+    DrawCircle(x, y)
 
     SavePositions()
 
-    ToolTip("Saved slot " slot ": " x ", " y)
+    ToolTip("Saved: " x ", " y)
     SetTimer(() => ToolTip(), -800)
 }
 
-DrawCircle(x, y, radius := 15) {
+ResetPositions()
+{
+    global positions
+
+    positions := []
+
+    DrawDestroy()
+
+    ToolTip("Reset positions")
+    SetTimer(() => ToolTip(), -800)
+}
+
+DrawCircle(x, y, radius := 15, color := "Lime")
+{
     global drawList
 
     size := radius * 2
 
     g := Gui("+AlwaysOnTop -Caption +ToolWindow +E0x20")
-    g.BackColor := "Lime"
+    g.BackColor := color
 
     g.Show("x" (x - radius) " y" (y - radius) " w" size " h" size " NoActivate")
     WinSetRegion("0-0 w" size " h" size " E", g.Hwnd)

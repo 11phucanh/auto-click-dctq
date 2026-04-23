@@ -1,23 +1,35 @@
 ﻿Register("giao_tranh", giao_tranh)
 
 giao_tranh() {
+    global running
+
     posFile := A_ScriptDir "\positions\giao_tranh.json"
-    positions := LoadPositions(posFile)
+    data := LoadPositions(posFile)
 
-    pos_1 := positions["1"]
-    pos_2 := positions["2"]
-    pos_3 := positions["3"]
-    pos_4 := positions["4"]
-    pos_5 := positions["5"]
+    heroes := data["heroes"]
+    troops := data.Has("troops") ? data["troops"] : []
+    waitBattleEnd := data.Has("wait_battle_end") ? data["wait_battle_end"] : 20000
+    postActions := data.Has("post_actions") ? data["post_actions"] : []
 
-    ; Hien thi vi tri
-    Loop 5 {
-        key := String(A_Index)
-        if positions.Has(key) {
-            p := positions[key]
-            MouseMove(p["x"], p["y"])
-            DrawCircle(p["x"], p["y"], 15)
-        }
+    ; Preview hero's positions
+    for _, p in heroes
+    {
+        MouseMove(p["x"], p["y"])
+        DrawCircle(p["x"], p["y"])
+    }
+
+    ; Preview troop's positions
+    for _, p in troops
+    {
+        MouseMove(p["x"], p["y"])
+        DrawCircle(p["x"], p["y"], 15, 0xFFA500)
+    }
+
+    ; Preview postActions's positions
+    for _, p in postActions
+    {
+        MouseMove(p["x"], p["y"])
+        DrawCircle(p["x"], p["y"], 15, "Blue")
     }
     
     result := MsgBox(
@@ -33,27 +45,53 @@ giao_tranh() {
         return
     }
 
-    Loop 15 {
-        ; Tha Tuong
-        Loop 5 {
-            key := String(A_Index)
+    ; 15 matches
+    Loop 15
+    {
+        if (!running)
+        {
+            break
+        }
 
-            if positions.Has(key) {
-                p := positions[key]
-                MouseMove(p["x"], p["y"])
-                Sleep(300)
-                Click()
-                Sleep(300)
-            }
+        MsgBox(1)
+
+        ; heroes enter
+        for _, p in heroes {
+            MouseMove(p["x"], p["y"])
+            Sleep(200)
+            Click()
+            Sleep(200)
         }
         
-        ; Doi danh xong
-        Sleep(25000)
+        ; troops enter
+        for _, p in troops {
+            MouseMove(p["x"], p["y"])
+            Sleep(200)
+            Click()
+            Sleep(200)
+        }
 
-        ; Ket thuc
+        ; wait for battle
+        start := A_TickCount
+        while (A_TickCount - start < waitBattleEnd)
+        {
+            if (!running)
+            {
+                break
+            }
 
-        ; Xac nhan
+            Sleep(200)
+        }
 
-        ; Tim Tran Tiep theo
+        ; Post action
+        for _, act in postActions
+        {
+            MouseMove(act["x"], act["y"])
+            Sleep(200)
+            Click()
+            Sleep(200)
+        }
     }
+
+    MsgBox("Finished 15 battles")
 }
