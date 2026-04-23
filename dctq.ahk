@@ -10,6 +10,7 @@ currentSet := 1
 myMenu := CreateMenu()
 
 ^Enter::
+^NumpadEnter::
 {
     global running
     running := true
@@ -19,7 +20,7 @@ myMenu := CreateMenu()
     }
 }
 
-^`:: Stop()
+^`::
 ^0:: Stop()
 
 ^1:: SaveMouseToSlot("1")
@@ -27,7 +28,8 @@ myMenu := CreateMenu()
 ^3:: SaveMouseToSlot("3")
 ^4:: SaveMouseToSlot("4")
 ^5:: SaveMouseToSlot("5")
-^D:: DrawDestroy()
+
+^Q:: ExitAutoDCTQ()
 
 Main()
 {
@@ -62,4 +64,17 @@ Register(name, func)
 {
     global mapActions
     mapActions[name] := func
+}
+
+ExitAutoDCTQ()
+{
+    DrawDestroy()
+
+    ToolTip("Exiting app...")
+    
+    Sleep(1000)
+
+    ToolTip()
+    
+    ExitApp()
 }

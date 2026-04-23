@@ -20,9 +20,18 @@ giao_tranh() {
         }
     }
     
-    MsgBox("Click OK to start giao_tranh")
+    result := MsgBox(
+        "Confirm the marked positions.`n`nPress <OK> to continue.`nPress <Cancel> to adjust.",
+        "Confirmation",
+        "OKCancel Icon?"
+    )
 
     DrawDestroy()
+
+    if (result != "OK")
+    {
+        return
+    }
 
     ; Tha Tuong
     Loop 5 {
