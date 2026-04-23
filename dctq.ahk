@@ -2,14 +2,15 @@
 #include JSON.ahk
 #include menu.ahk
 #include actions/all.ahk
-
+#include MouseTracker.ahk
 
 running := false
 currentSet := 1
 
 myMenu := CreateMenu()
 
-^Enter:: {
+^Enter::
+{
     global running
     running := true
 
@@ -21,23 +22,31 @@ myMenu := CreateMenu()
 ^`:: Stop()
 ^0:: Stop()
 
+^1:: SaveMouseToSlot("1")
+^2:: SaveMouseToSlot("2")
+^3:: SaveMouseToSlot("3")
+^4:: SaveMouseToSlot("4")
+^5:: SaveMouseToSlot("5")
+^D:: DrawDestroy()
+
 Main()
 {
     global running, mapActions, currentSet
 
-
     myMenu.Show()
 
-    while (running)
+    if (currentSet = -1)
     {
-        if (currentSet = -1)
         return
+    }
 
-        if (mapActions.Has(currentSet)) {
-            mapActions[currentSet].Call()
-        } else {
-            MsgBox("mapActions not found " currentSet)
-        }
+    if (mapActions.Has(currentSet))
+    {
+        mapActions[currentSet].Call()
+    }
+    else
+    {
+        MsgBox("mapActions not found " currentSet)
     }
 }
 
