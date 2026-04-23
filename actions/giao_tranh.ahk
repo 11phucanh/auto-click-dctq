@@ -33,19 +33,27 @@ giao_tranh() {
         return
     }
 
-    ; Tha Tuong
-    Loop 5 {
-        key := String(A_Index)
+    Loop 15 {
+        ; Tha Tuong
+        Loop 5 {
+            key := String(A_Index)
 
-        if positions.Has(key) {
-            p := positions[key]
-            MouseMove(p["x"], p["y"])
-            Sleep(300)
-            Click()
-            Sleep(300)
+            if positions.Has(key) {
+                p := positions[key]
+                MouseMove(p["x"], p["y"])
+                Sleep(300)
+                Click()
+                Sleep(300)
+            }
         }
-    }
+        
+        ; Doi danh xong
+        Sleep(25000)
 
-    ; Doi danh xong
-    Sleep(5000)
+        ; Ket thuc
+
+        ; Xac nhan
+
+        ; Tim Tran Tiep theo
+    }
 }
