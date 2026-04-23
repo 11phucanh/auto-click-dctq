@@ -1,8 +1,6 @@
 ﻿Register("giao_tranh", giao_tranh)
 
 giao_tranh() {
-    MsgBox("giao_tranh")
-
     posFile := A_ScriptDir "\positions\giao_tranh.json"
     positions := LoadPositions(posFile)
 
@@ -12,10 +10,9 @@ giao_tranh() {
     pos_4 := positions["4"]
     pos_5 := positions["5"]
 
-    ; Tha Tuong
+    ; Hien thi vi tri
     Loop 5 {
         key := String(A_Index)
-
         if positions.Has(key) {
             p := positions[key]
             MouseMove(p["x"], p["y"])
@@ -23,7 +20,23 @@ giao_tranh() {
         }
     }
     
-    Sleep(5000)
+    MsgBox("Click OK to start giao_tranh")
 
     DrawDestroy()
+
+    ; Tha Tuong
+    Loop 5 {
+        key := String(A_Index)
+
+        if positions.Has(key) {
+            p := positions[key]
+            MouseMove(p["x"], p["y"])
+            Sleep(300)
+            Click()
+            Sleep(300)
+        }
+    }
+
+    ; Doi danh xong
+    Sleep(5000)
 }
